@@ -1,0 +1,424 @@
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import java.io.*;
+
+
+public class k extends JFrame implements ActionListener
+{
+JTextArea t;
+JButton b;
+JFrame f,f1,fr,fr1;
+JLabel l1,l2;
+JTextField t1,t2;
+JMenuBar mbr;
+JMenu file,edit,format,view,help;
+JMenuItem file1,file2,file3,file4,format1,format2,edit1,edit2,edit3,help1;
+JScrollPane s;
+JButton n;
+
+static k h;
+k()
+{
+//TextArea
+t=new JTextArea();
+t.setBounds(0,0,2000,2000);
+add(t);
+
+//MenuBar
+mbr=new JMenuBar();
+setJMenuBar(mbr);
+
+
+//Vartical Scrollbar
+ s=new JScrollPane(t);
+  add(s);
+    s.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+
+//First menu item File
+	
+file=new JMenu("File");
+file1=new JMenuItem("New");
+file1.addActionListener(this);
+file2=new JMenuItem("Save");
+file2.addActionListener(this);
+file3=new JMenuItem("Save As");
+file3.addActionListener(this);
+
+file.add(file1);
+file.add(file2);
+file.add(file3);
+mbr.add(file);
+
+//Second Menu  Edit
+edit=new JMenu("Edit");
+mbr.add(edit);
+edit1=new JMenuItem("Cut");
+edit1.addActionListener(this);
+edit2=new JMenuItem("Copy");
+edit2.addActionListener(this);
+edit3=new JMenuItem("Paste");
+edit3.addActionListener(this);
+edit.add(edit1);
+edit.add(edit2);
+edit.add(edit3);
+
+//Third menu Format 
+format=new JMenu("Format");
+mbr.add(format);
+format1=new JMenuItem("Font");
+format1.addActionListener(this);
+format2=new JMenuItem("Preference");
+format2.addActionListener(this);
+format.add(format1);
+format.add(format2);
+
+help=new JMenu("help");
+mbr.add(help);
+help1=new JMenuItem("Developed By");
+help1.addActionListener(this);
+help.add(help1);
+
+setSize(1500,1500);
+setVisible(true);
+setLayout(null);
+
+t.setBackground(Color.yellow);
+mbr.setBackground(Color.pink);
+}
+
+//Main
+public static void main(String args[])
+{
+k h=new k();
+}
+
+//@Overriden From ActionListener
+public void actionPerformed(ActionEvent e)
+{
+if(e.getSource()==format2)
+{
+JFrame fr=new JFrame("Color");
+fr.setSize(500,500);
+fr.setVisible(true);
+fr.setLayout(null);
+JComboBox cb=new JComboBox();
+cb.setBounds(20,60,80,50);
+JLabel la=new JLabel(" Color");
+la.setBounds(50,10,50,50);
+
+fr.add(la);
+JLabel la1=new JLabel("MenuBar Color");
+
+la1.setBounds(150,10,50,50);
+
+fr.add(la1);
+cb.addItem("Red");
+cb.addItem("Blue");
+cb.addItem("Green");
+cb.addItem("Blue");
+cb.addItem("Pink");
+cb.addItem("White");
+cb.addItem("Yellow");
+fr.add(cb);
+
+JComboBox cb1=new JComboBox();
+cb1.setBounds(140,60,80,50);
+cb1.addItem("Red");
+cb1.addItem("Blue");
+cb1.addItem("Green");
+cb1.addItem("Yellow");
+cb1.addItem("Pink");
+cb1.addItem("White");
+cb1.addItem("Black");
+
+
+fr.add(cb1);
+JButton b1=new JButton("OK");
+b1.setBounds(10,300,60,50);
+JButton b2=new JButton("Cancel");
+b2.setBounds(150,300,80,50);
+fr.add(b1);
+fr.add(b2);
+b2.addActionListener(new ActionListener(){
+public void actionPerformed(ActionEvent e4)
+{
+fr.dispose();
+}
+});
+
+
+b1.addActionListener(new ActionListener(){
+public void actionPerformed(ActionEvent e3)
+{
+String str1,str2;
+str1=(String)cb.getSelectedItem();
+str2=(String)cb1.getSelectedItem();
+
+if(str1=="Red")
+{
+t.setBackground(Color.red);
+}
+if(str1=="Blue")
+{
+t.setBackground(Color.blue);
+}
+if(str1=="Green")
+{
+t.setBackground(Color.green);
+}
+if(str1=="Pink")
+{
+t.setBackground(Color.pink);
+}
+if(str1=="Yellow")
+{
+t.setBackground(Color.yellow);
+}
+
+if(str1=="White")
+{
+t.setBackground(Color.white);
+}
+if(str1=="Black")
+{
+t.setBackground(Color.black);
+}
+
+if(str2=="Red")
+{
+mbr.setBackground(Color.red);
+}
+if(str2=="Blue")
+{
+mbr.setBackground(Color.blue);
+}
+if(str2=="Green")
+{
+t.setBackground(Color.green);
+}
+if(str2=="Pink")
+{
+mbr.setBackground(Color.pink);
+}
+if(str2=="Yellow")
+{
+mbr.setBackground(Color.yellow);
+}
+
+if(str2=="White")
+{
+mbr.setBackground(Color.white);
+}
+
+if(str2=="Black")
+{
+mbr.setBackground(Color.black);
+}
+
+fr.dispose();
+}
+});
+
+
+
+
+
+}
+if(e.getSource()==file1)
+{
+new  k();
+}
+if(e.getSource()==file3)
+		{
+			JFileChooser jf=new JFileChooser();
+			jf.showSaveDialog(this);
+			File fo=new File(jf.getSelectedFile().getAbsolutePath());
+			try
+			{
+			FileWriter fw=new FileWriter(fo);
+			
+			BufferedWriter bw=new BufferedWriter(fw);
+			 bw.write(t.getText());
+			 bw.close();
+		   	
+		}catch(Exception e1)
+			{
+			
+			}
+		}
+		
+		if(e.getSource()==file2)
+		{
+			JFileChooser jf=new JFileChooser();
+			jf.showSaveDialog(this);
+			File fo=new File(jf.getSelectedFile().getAbsolutePath());
+			try
+			{
+			FileReader fw=new FileReader(fo);
+			
+			BufferedReader bw=new BufferedReader(fw);
+			 
+			String s="";
+			String data="";
+			
+			while((data=bw.readLine())!=null)
+			{
+				s=s+data;
+			}
+			t.setText(s);
+			fw.close();
+			bw.close();
+		}catch(Exception e1)
+			{
+			
+			}
+		}
+				 
+			
+
+if(e.getSource()==edit1)
+{
+t.cut();
+}
+if(e.getSource()==edit3)
+{
+t.paste();
+}
+if(e.getSource()==edit2)
+{
+t.copy();
+}
+if(e.getSource()==format1)
+{
+f1=new JFrame("Select Font");
+f1.setSize(500,500);
+
+f1.setVisible(true);
+JComboBox jc=new JComboBox();
+jc.setBounds(10,60,80,50);
+jc.setBackground(Color.blue);	
+jc.addItem("Arial");
+				   jc.addItem("Constantia");
+				   jc.addItem("Consolas");
+				   jc.addItem("Cooper");
+				   jc.addItem("Copperplate Gothic");
+				   jc.addItem("Courier New");
+				   jc.addItem("Javanese Text");
+				   jc.addItem("Franklin Gothic");
+				   jc.addItem("Franklin Gothic Book");
+				   jc.addItem("Freestyle Script");
+				   jc.addItem("Microsoft JhengHei");
+				   jc.addItem("Perpetua");
+				   jc.addItem("Myanmar Text");
+				   
+
+JComboBox jc1=new JComboBox();
+jc1.setBackground(Color.green);	
+                                                                           jc1.addItem("BOLD");
+				   jc1.addItem("ITALIC");
+				   jc1.addItem("BOLD ITALIC");
+jc1.setBounds(140,60,80,50);
+JLabel l1=new JLabel("Font Type");
+l1.setBounds(50,10,50,50);
+
+JLabel l2=new JLabel("Font name");
+l2.setBounds(150,10,50,50);
+
+JLabel l3=new JLabel("Font Size");
+l3.setBounds(250,10,50,50);
+f1.add(l3);
+f1.add(l1);
+f1.add(l2);	
+JComboBox jc2=new JComboBox();
+jc2.setBackground(Color.pink);	
+
+jc2.addItem(5);
+				   jc2.addItem(10);
+				   jc2.addItem(15);
+				   jc2.addItem(20);
+				   jc2.addItem(25);
+				   jc2.addItem(30);
+				   jc2.addItem(35);
+				   jc2.addItem(40);
+				   jc2.addItem(45);
+f1.add(jc2);
+jc2.setBounds(270,60,50,50);
+f1.setLayout(null);
+f1.add(jc);
+f1.add(jc1);
+
+JButton b1=new JButton("Ok");
+b1.setBackground(Color.pink);	
+f1.add(b1);
+b1.setBounds(10,300,50,50);
+JButton b2=new JButton("Cancel");
+b2.setBackground(Color.pink);	
+
+f1.add(b2);
+b2.setBounds(100,300,80,50);
+b2.addActionListener(new ActionListener(){
+public void actionPerformed(ActionEvent e4)
+{
+f1.dispose();
+}
+});
+
+
+b1.addActionListener(new ActionListener(){
+public void actionPerformed(ActionEvent e3)
+{
+String str1,str2;
+str1=(String)jc.getSelectedItem();
+str2=(String)jc1.getSelectedItem();
+int str3=(int)jc2.getSelectedItem();
+
+if(str2=="BOLD")
+{
+Font fo=new Font(str1,Font.BOLD,str3);
+t.setFont(fo);		 
+}
+
+					if(str2=="ITALIC")
+					{
+						
+		 t1.setFont(new Font(str1,Font.ITALIC,str3));
+					}
+					
+					  
+					if(str2=="BOLD ITALIC")
+					{
+						
+		 t1.setFont(new Font(str1,Font.BOLD +Font.ITALIC,str3));
+					}
+f1.dispose();
+
+}
+});
+}
+
+if(e.getSource()==help1)
+{
+ fr1=new JFrame("Developed By");
+fr1.setLayout(new FlowLayout());
+fr1.setSize(500,500);
+fr1.setVisible(true);
+JLabel l1=new JLabel("This Notepad  is develoed by Shubham Pandurang Kale");
+JLabel l4=new JLabel("Gmail:- shubhamkale3105@gmail.com");
+JLabel l5=new JLabel("Mob:- 7030535311");
+
+JLabel l2=new JLabel("P E S College Of  Engineering ,Aurangabad ");
+JLabel l3=new JLabel("GitHub Link:- www.Github/shubhamkpatil");
+JLabel l6=new JLabel("Computer Science And Engineering Department ");
+
+fr1.add(l1);
+fr1.add(l2);fr1.add(l6);
+fr1.add(l3);
+fr1.add(l4);
+fr1.add(l5);
+l1.setBackground(Color.pink);
+
+}
+}
+}
